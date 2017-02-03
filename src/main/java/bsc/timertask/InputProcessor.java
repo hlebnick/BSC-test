@@ -35,27 +35,29 @@ public class InputProcessor {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("bye");
+        System.out.println("Quiting.");
         System.exit(0);
     }
 
     private void processLine(String line) {
-        Payment payment = CommandParser.parse(line);
+        Payment payment = CommandParser.parseCommand(line);
         paymentDao.apply(payment);
     }
 
     public void processFile(String file) {
-        String line = "";
+        String line;
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
             while ((line = br.readLine()) != null) {
-                processLine(line);
+                try {
+                    processLine(line);
+                } catch (PaymentParseException e) {
+                    System.out.println("Wrong format: [" + line + "]");
+                }
             }
             br.close();
         } catch (IOException e) {
             System.out.println("Can't read file.");
-        } catch (PaymentParseException e) {
-            System.out.println("Wrong format: [" + line + "]");
         }
     }
 }

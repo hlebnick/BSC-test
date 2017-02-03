@@ -2,3 +2,4 @@ USD 1000
 USD -400
 HMD 300
 wrong line
+RMB 2000
