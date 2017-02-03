@@ -16,7 +16,12 @@ public class InMemoryPaymentDao implements PaymentDao {
             inMemoryStore.put(payment.getCurrency(), payment.getAmount());
         } else {
             BigDecimal original = inMemoryStore.get(payment.getCurrency());
-            inMemoryStore.put(payment.getCurrency(), original.add(payment.getAmount()));
+            BigDecimal newValue = original.add(payment.getAmount());
+            if (newValue.equals(new BigDecimal(0))) {
+                inMemoryStore.remove(payment.getCurrency());
+            } else {
+                inMemoryStore.put(payment.getCurrency(), newValue);
+            }
         }
     }
 
