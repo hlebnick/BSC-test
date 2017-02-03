@@ -1,19 +1,24 @@
 package bsc.timertask;
 
-import bsc.service.PaymentService;
+import bsc.dao.PaymentDao;
+import bsc.model.Payment;
 
+import java.util.List;
 import java.util.TimerTask;
 
 public class OutputStateTimerTask extends TimerTask {
 
-    private PaymentService paymentService;
+    private PaymentDao paymentDao;
 
     @Override
     public void run() {
-        System.out.println("timer task");
+        List<Payment> payments = paymentDao.getAll();
+        for (Payment payment : payments) {
+            System.out.println(payment);
+        }
     }
 
-    public void setPaymentService(PaymentService paymentService) {
-        this.paymentService = paymentService;
+    public void setPaymentDao(PaymentDao paymentDao) {
+        this.paymentDao = paymentDao;
     }
 }

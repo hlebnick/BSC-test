@@ -1,8 +1,9 @@
 package bsc;
 
+import bsc.dao.InMemoryPaymentDao;
+import bsc.dao.PaymentDao;
 import bsc.exception.PaymentParseException;
 import bsc.model.Payment;
-import bsc.service.PaymentService;
 import bsc.timertask.OutputStateTimerTask;
 import bsc.util.CommandParser;
 
@@ -16,7 +17,7 @@ public class Application {
     public static final String QUIT_COMMAND = "quit";
     public static final int OUTPUT_STATE_PERIOD = 10000;
 
-    private PaymentService paymentService = new PaymentService();
+    private PaymentDao paymentDao = new InMemoryPaymentDao();
 
     public static void main(String[] args) {
         new Application().run();
@@ -24,7 +25,7 @@ public class Application {
 
     private void run() {
         OutputStateTimerTask task = new OutputStateTimerTask();
-        task.setPaymentService(paymentService);
+        task.setPaymentDao(paymentDao);
         new Timer().schedule(task, OUTPUT_STATE_PERIOD, OUTPUT_STATE_PERIOD);
 
         String input = "";
@@ -34,7 +35,7 @@ public class Application {
             try {
                 input = reader.readLine();
                 Payment payment = CommandParser.parse(input);
-                paymentService.apply(payment);
+                paymentDao.apply(payment);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (PaymentParseException e) {
