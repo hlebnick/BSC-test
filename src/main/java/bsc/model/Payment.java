@@ -7,6 +7,11 @@ public class Payment {
     private String currency;
     private BigDecimal amount;
 
+    public Payment(String currency, BigDecimal amount) {
+        this.currency = currency;
+        this.amount = amount;
+    }
+
     public String getCurrency() {
         return currency;
     }
