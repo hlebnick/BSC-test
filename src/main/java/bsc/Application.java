@@ -14,14 +14,18 @@ public class Application {
     private PaymentDao paymentDao = new InMemoryPaymentDao();
 
     public static void main(String[] args) {
-        new Application().run();
+        new Application().run(args);
     }
 
-    private void run() {
+    private void run(String[] args) {
         OutputStateTimerTask task = new OutputStateTimerTask();
         task.setPaymentDao(paymentDao);
         new Timer().schedule(task, OUTPUT_STATE_PERIOD, OUTPUT_STATE_PERIOD);
 
-        new InputProcessor(paymentDao).run();
+        InputProcessor inputProcessor = new InputProcessor(paymentDao);
+        if (args.length != 0) {
+            inputProcessor.processFile(args[0]);
+        }
+        inputProcessor.run();
     }
 }
