@@ -24,15 +24,13 @@ public class InputProcessor {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             try {
                 String input = reader.readLine();
-                if (input.equals(QUIT_COMMAND)) {
+                if (input != null && input.equals(QUIT_COMMAND)) {
                     break;
                 }
                 Payment payment = CommandParser.parse(input);
                 paymentDao.apply(payment);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (PaymentParseException e) {
-                e.printStackTrace();
+            } catch (IOException | PaymentParseException e) {
+                System.out.println(e.getMessage());
             }
         }
         System.out.println("bye");

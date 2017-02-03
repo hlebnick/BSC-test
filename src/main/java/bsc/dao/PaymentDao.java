@@ -2,11 +2,12 @@ package bsc.dao;
 
 import bsc.model.Payment;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Map;
 
 public interface PaymentDao {
 
     void apply(Payment payment);
 
-    List<Payment> getAll();
+    Map<String, BigDecimal> getAll();
 }

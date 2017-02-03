@@ -1,9 +1,9 @@
 package bsc.timertask;
 
 import bsc.dao.PaymentDao;
-import bsc.model.Payment;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Map;
 import java.util.TimerTask;
 
 public class OutputStateTimerTask extends TimerTask {
@@ -12,9 +12,9 @@ public class OutputStateTimerTask extends TimerTask {
 
     @Override
     public void run() {
-        List<Payment> payments = paymentDao.getAll();
-        for (Payment payment : payments) {
-            System.out.println(payment);
+        Map<String, BigDecimal> state = paymentDao.getAll();
+        for (Map.Entry<String, BigDecimal> entry : state.entrySet()) {
+            System.out.println(entry.getKey() + ' ' + entry.getValue());
         }
     }
 

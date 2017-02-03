@@ -9,7 +9,7 @@ import java.util.Timer;
 
 public class Application {
 
-    public static final int OUTPUT_STATE_PERIOD = 10000;
+    public static final int OUTPUT_STATE_PERIOD = 60000;
 
     private PaymentDao paymentDao = new InMemoryPaymentDao();
 
