@@ -14,6 +14,11 @@ public class OutputStateTimerTask extends TimerTask {
     private PaymentDao paymentDao;
     private ExchangeService exchangeService;
 
+    public OutputStateTimerTask(PaymentDao paymentDao, ExchangeService exchangeService) {
+        this.paymentDao = paymentDao;
+        this.exchangeService = exchangeService;
+    }
+
     @Override
     public void run() {
         Map<String, BigDecimal> state = paymentDao.getAll();
@@ -23,16 +28,10 @@ public class OutputStateTimerTask extends TimerTask {
                 String output = format("{0} {1} (USD {2})", entry.getKey(), entry.getValue(),
                         rate.multiply(entry.getValue()).setScale(2, BigDecimal.ROUND_FLOOR));
                 System.out.println(output);
+            } else {
+                System.out.println(format("{0} {1}", entry.getKey(), entry.getValue().toString()));
             }
-            System.out.println(entry.getKey() + ' ' + entry.getValue());
         }
     }
 
-    public void setPaymentDao(PaymentDao paymentDao) {
-        this.paymentDao = paymentDao;
-    }
-
-    public void setExchangeService(ExchangeService exchangeService) {
-        this.exchangeService = exchangeService;
-    }
 }

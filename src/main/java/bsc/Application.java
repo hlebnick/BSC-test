@@ -23,9 +23,7 @@ public class Application {
     private void run(String[] args) {
         exchangeService.loadData(USD_EXCHANGE_RATES_FILE);
 
-        OutputStateTimerTask task = new OutputStateTimerTask();
-        task.setPaymentDao(paymentDao);
-        task.setExchangeService(exchangeService);
+        OutputStateTimerTask task = new OutputStateTimerTask(paymentDao, exchangeService);
         new Timer().schedule(task, OUTPUT_STATE_PERIOD, OUTPUT_STATE_PERIOD);
 
         InputProcessor inputProcessor = new InputProcessor(paymentDao);

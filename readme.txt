@@ -1,11 +1,11 @@
-I made assumption that account can have negative state.
-Limit of amount parameter is 10 digits.
+I made assumption that the account can have negative state.
+Limit of the amount parameter is 10 digits.
 If user inputs invalid message, applications just says about wrong format, it's not critical situation and application
 can continue working well.
-If some line in file has wrong format, the application continues working. Message about wrong format will be printed in console.
+If some line from the file has wrong format, the application continues working. Message about wrong format will be printed in console.
 
 As task is pretty simple, I'm not using libraries for logging in order not to move attention from application logic to libs etc.
-Application has in-memory store, which won't be saved after restarting.
+Application has in-memory data store, which won't be restored after restart.
 
 
 
@@ -18,4 +18,4 @@ type into the command line next commands:
 
 or run bsc.Application class from any IDE.
 
-filename is optional parameter, you can specify file with initial data like described in the document.
+<filename> is an optional parameter, you can specify filename with initial data like described in the document.

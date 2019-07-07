@@ -11,7 +11,7 @@ public class InMemoryPaymentDao implements PaymentDao {
     private Map<String, BigDecimal> inMemoryStore = new HashMap<>();
 
     @Override
-    public void apply(Payment payment) {
+    public synchronized void apply(Payment payment) {
         if (!inMemoryStore.containsKey(payment.getCurrency())) {
             inMemoryStore.put(payment.getCurrency(), payment.getAmount());
         } else {
